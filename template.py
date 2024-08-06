@@ -5,7 +5,7 @@ import logging
 logging.basicConfig(level=logging.INFO, format="[%(asctime)s]: %(message)s:")
 
 
-project_name = "signlanguage"
+project_name = "crimedetection"
 
 
 list_of_files = [
