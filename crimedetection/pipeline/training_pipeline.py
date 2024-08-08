@@ -32,8 +32,8 @@ class TrainPipeline:
         self.model_trainer_config = (
             ModelTrainerConfig()
         )  # Did this part in colab due to resource constraints
-        # self.model_pusher_config = ModelPusherConfig()
-        # self.s3_operations = S3Operation()
+        self.model_pusher_config = ModelPusherConfig()
+        self.s3_operations = S3Operation()
 
     def start_data_ingestion(self) -> DataIngestionArtifact:
         try:
@@ -90,20 +90,20 @@ class TrainPipeline:
         except Exception as e:
             raise CrimeException(e, sys)
 
-    # def start_model_pusher(
-    #     self, model_trainer_artifact: ModelTrainerArtifact, s3: S3Operation
-    # ):
+    def start_model_pusher(
+        self, model_trainer_artifact: ModelTrainerArtifact, s3: S3Operation
+    ):
 
-    #     try:
-    #         model_pusher = ModelPusher(
-    #             model_pusher_config=self.model_pusher_config,
-    #             model_trainer_artifact=model_trainer_artifact,
-    #             s3=s3,
-    #         )
-    #         model_pusher_artifact = model_pusher.initiate_model_pusher()
-    #         return model_pusher_artifact
-    #     except Exception as e:
-    #         raise CrimeException(e, sys)
+        try:
+            model_pusher = ModelPusher(
+                model_pusher_config=self.model_pusher_config,
+                model_trainer_artifact=model_trainer_artifact,
+                s3=s3,
+            )
+            model_pusher_artifact = model_pusher.initiate_model_pusher()
+            return model_pusher_artifact
+        except Exception as e:
+            raise CrimeException(e, sys)
 
     def run_pipeline(self) -> None:
         try:
