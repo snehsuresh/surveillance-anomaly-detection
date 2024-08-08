@@ -11,7 +11,7 @@ DATA_INGESTION_DIR_NAME: str = "data_ingestion"
 DATA_INGESTION_FEATURE_STORE_DIR: str = "feature_store"
 
 DATA_DOWNLOAD_URL: str = (
-    "https://www.dropbox.com/scl/fi/jbaukhs7b0iz76lfyn9v5/surveillance_cam_data.zip?rlkey=oa8stk9bscp1zso10rc3hjy6z&st=0drllhih&dl=1"
+    "https://www.dropbox.com/scl/fi/abc2rni8k1azebdr5yn7t/Archive.zip?rlkey=tbpsx4jwazkjpnhyks4ox702s&st=bov92q04&dl=1"
 )
 
 
@@ -23,7 +23,7 @@ DATA_VALIDATION_DIR_NAME: str = "data_validation"
 
 DATA_VALIDATION_STATUS_FILE = "status.txt"
 
-DATA_VALIDATION_ALL_REQUIRED_FILES = ["train", "test", "data.yaml"]
+DATA_VALIDATION_ALL_REQUIRED_FILES = ["train", "test", "valid", "data.yaml"]
 
 
 """
@@ -41,5 +41,5 @@ MODEL_TRAINER_BATCH_SIZE: int = 16
 """
 MODEL PUSHER related constant start with MODEL_PUSHER var name
 """
-BUCKET_NAME = "sign-lang-23"
+BUCKET_NAME = "crimedetection-24"
 S3_MODEL_NAME = "best.pt"

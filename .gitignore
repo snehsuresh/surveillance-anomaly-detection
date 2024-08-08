@@ -167,3 +167,5 @@ cython_debug/
 /surveillance_cam_data
 /artifacts
 /log
+.DS_Store
+

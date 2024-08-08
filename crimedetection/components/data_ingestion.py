@@ -49,8 +49,33 @@ class DataIngestion:
         try:
             feature_store_path = self.data_ingestion_config.feature_store_file_path
             os.makedirs(feature_store_path, exist_ok=True)
+
             with zipfile.ZipFile(zip_file_path, "r") as zip_ref:
-                zip_ref.extractall(feature_store_path)
+                # Get a list of all files and directories in the zip
+                for file_info in zip_ref.infolist():
+                    # Skip _MACOSX and any files starting with '.' (hidden files)
+                    if file_info.filename.startswith(
+                        "_MACOSX"
+                    ) or file_info.filename.startswith("."):
+                        continue
+
+                    # Create directories if needed
+                    if file_info.is_dir():
+                        continue
+
+                    # Extract file if it's not in the _MACOSX folder
+                    extracted_path = os.path.join(
+                        feature_store_path, file_info.filename
+                    )
+                    # Create directories in the path if they do not exist
+                    if not os.path.exists(os.path.dirname(extracted_path)):
+                        os.makedirs(os.path.dirname(extracted_path))
+
+                    with zip_ref.open(file_info) as source, open(
+                        extracted_path, "wb"
+                    ) as target:
+                        target.write(source.read())
+
             logging.info(
                 f"Extracting zip file: {zip_file_path} into dir: {feature_store_path}"
             )

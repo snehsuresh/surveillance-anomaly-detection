@@ -42,6 +42,7 @@ class DataValidationConfig:
 
 @dataclass
 class ModelTrainerConfig:
+    pre_trained: bool = True
     model_trainer_dir: str = os.path.join(
         training_pipeline_config.artifacts_dir, MODEL_TRAINER_DIR_NAME
     )
