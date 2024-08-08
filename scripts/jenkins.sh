@@ -33,10 +33,11 @@ sudo apt install awscli -y
 sudo usermod -a -G docker jenkins
 
 
-## AWS configuration & restarts jenkins
+## AWS configuration 
 
 aws configure
 
+## Restarts jenkins
 
 ## Now setup elastic IP on AWS
 
