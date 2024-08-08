@@ -1,3 +1,10 @@
-YOLO object detection model. End to End. 
-Deploy Jenkins
-Test
+# Surveillance Anomaly Object Detection Project
+
+## Workflows
+
+    - constants
+    - config_entity
+    - artifact_entity
+    - components
+    - pipeline
+    - app.py
