@@ -1,10 +1,10 @@
 import sys, os
-from crimedetection.pipeline.training_pipeline import TrainPipeline
-from crimedetection.exception import CrimeException
-from crimedetection.utils.main_utils import decodeImage, encodeImageIntoBase64
+from expressiondetection.pipeline.training_pipeline import TrainPipeline
+from expressiondetection.exception import FaceException
+from expressiondetection.utils.main_utils import decodeImage, encodeImageIntoBase64
 from flask import Flask, request, jsonify, render_template, Response
 from flask_cors import CORS, cross_origin
-from crimedetection.constant.application import APP_HOST, APP_PORT
+from expressiondetection.constant.application import APP_HOST, APP_PORT
 
 
 app = Flask(__name__)
