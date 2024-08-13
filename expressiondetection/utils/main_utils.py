@@ -1,45 +1,44 @@
-import os.path
-import sys
-import yaml
-import base64
-
-from expressiondetection.exception import FaceException
-from expressiondetection.logger import logging
-
-
-def read_yaml_file(file_path: str) -> dict:
-    try:
-        with open(file_path, "rb") as yaml_file:
-            logging.info("Read yaml file successfully")
-            return yaml.safe_load(yaml_file)
-
-    except Exception as e:
-        raise FaceException(e, sys) from e
+import cv2
+from PIL import Image
+from gtts import gTTS
+import os
+import cv2
+import numpy as np
+from io import BytesIO
+from pygame import mixer
+import time
 
 
-def write_yaml_file(file_path: str, content: object, replace: bool = False) -> None:
-    try:
-        if replace:
-            if os.path.exists(file_path):
-                os.remove(file_path)
-
-        os.makedirs(os.path.dirname(file_path), exist_ok=True)
-
-        with open(file_path, "w") as file:
-            yaml.dump(content, file)
-            logging.info("Successfully write_yaml_file")
-
-    except Exception as e:
-        raise FaceException(e, sys)
+label_translation = {
+    "Jijik": "Disgusted",
+    "Kaget": "Surprised",
+    "Marah": "Angry",
+    "Sedih": "Sad",
+    "Senang": "Happy",
+    "Takut": "Fearful",
+    "Tidak Berekspresi": "No Expression",
+}
 
 
-def decodeImage(imgstring, fileName):
-    imgdata = base64.b64decode(imgstring)
-    with open("./data/" + fileName, "wb") as f:
-        f.write(imgdata)
-        f.close()
+def translate_label(indonesian_label):
+    return label_translation.get(indonesian_label, "Unknown Label")
 
 
-def encodeImageIntoBase64(croppedImagePath):
-    with open(croppedImagePath, "rb") as f:
-        return base64.b64encode(f.read())
+def display_image(image):
+    img_pil = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    img_pil.show()
+
+
+def speak_text(text):
+    mp3_fp = BytesIO()
+    tts = gTTS(text=text, lang="en")
+    # tts.save("output.mp3")
+    tts.write_to_fp(mp3_fp)
+    sound = mp3_fp
+    sound.seek(0)
+    mixer.init()
+
+    mixer.music.load(sound, "mp3")
+    mixer.music.play()
+    # time.sleep(5)
+    # os.system("afplay output.mp3")
